@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة الكورسات - Moon Light</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- إضافة مكتبة lightbox -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+  <link rel="icon" href="../images/logo.jpg" type="image/jpg">
+  <style>
+    /* Reset وتنسيقات عامة */
+    :root {
+      --primary-color: #ff2d75;
+      --primary-dark: #d61a5e;
+      --secondary-color: #ff8fab;
+      --light-pink: #fff0f3;
+      --dark-text: #333;
+      --light-text: #777;
+      --white: #fff;
+      --transition: all 0.3s ease;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Tajawal', sans-serif;
+    }
+    
+    body {
+      background-color: var(--light-pink);
+      color: var(--dark-text);
+      direction: rtl;
+      scroll-behavior: smooth;
+    }
+    
+    /* الهيدر */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+    
+    header.scrolled {
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navigation {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 20px;
+      justify-content: space-between;
+    }
+    
+    .mainhead {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+    
+    .mainhead a {
+      color: var(--dark-text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    .mainhead a:hover {
+      color: var(--primary-color);
+    }
+    
+    .mainhead a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: var(--transition);
+    }
+    
+    .mainhead a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+    
+    .logo:hover img {
+      transform: rotate(15deg);
+    }
+    
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--primary-color);
+    }
+    
+    /* قسم البطل */
+    .hero {
+      background: linear-gradient(rgba(255, 45, 117, 0.8), rgba(255, 143, 171, 0.8)), 
+                  url('../images/courses/hero-bg.jpg') center/cover;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--white);
+      padding: 0 20px;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.3) 100%);
+      z-index: 1;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    
+    .hero-btn {
+      padding: 1rem 2.5rem;
+      background: var(--white);
+      color: var(--primary-color);
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--box-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: 0.5s;
+    }
+    
+    .hero-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hero-btn:hover::before {
+      left: 100%;
+    }
+    
+    /* قسم الكورسات */
+    .courses-section {
+      padding: 5rem 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-header h2 {
+      font-size: 2.8rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--primary-color);
+      border-radius: 3px;
+    }
+    
+    .section-header p {
+      font-size: 1.2rem;
+      color: var(--light-text);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+    }
+    
+    .course-card {
+      background: var(--white);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255, 45, 117, 0.2);
+    }
+    
+    .course-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+    
+    .course-img {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .course-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+      cursor: pointer;
+    }
+    
+    .course-card:hover .course-img img {
+      transform: scale(1.1);
+    }
+    
+    .course-content {
+      padding: 1.8rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .course-content h3 {
+      font-size: 1.5rem;
+      color: var(--dark-text);
+      margin-bottom: 1rem;
+    }
+    
+    .course-content p {
+      color: var(--light-text);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+    
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      font-size: 0.9rem;
+    }
+    
+    .course-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .course-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .course-price del {
+      font-size: 1rem;
+      color: var(--light-text);
+      opacity: 0.7;
+    }
+    
+    .course-btn {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .course-btn:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+      box-shadow: 0 5px 15px rgba(255, 45, 117, 0.3);
+      transform: translateY(-3px);
+    }
+    
+    /* فوتر */
+    footer {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      padding: 4rem 20px 2rem;
+      text-align: center;
+      position: relative;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23fff0f3"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23fff0f3"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23fff0f3"/></svg>');
+      background-size: cover;
+      transform: rotate(180deg);
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-logo {
+      margin-bottom: 2rem;
+    }
+    
+    .footer-logo img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      transition: var(--transition);
+    }
+    
+    .footer-logo img:hover {
+      transform: scale(1.1) rotate(10deg);
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 1.1rem;
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    .footer-links a:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .footer-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--white);
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 2rem;
+    }
+    
+    .social-links a {
+      color: var(--white);
+      font-size: 1.5rem;
+      transition: var(--transition);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .social-links a:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--white);
+    }
+    
+    .copyright {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-top: 2rem;
+    }
+    
+    /* ===== قسم المدربة ===== */
+    .instructor-section {
+      padding: 5rem 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .instructor-card {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      box-shadow: var(--box-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .instructor-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    }
+    
+    .instructor-card img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--primary-color);
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .instructor-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .instructor-card h3 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .instructor-card .title {
+      color: var(--light-text);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .instructor-card p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* ===== قسم آراء المتدربين ===== */
+    .testimonials-section {
+      padding: 5rem 20px;
+      background-color: var(--light-pink);
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 4rem;
+      color: rgba(255, 45, 117, 0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+    
+    .testimonial-card img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin-bottom: 1.5rem;
+      border: 3px solid var(--primary-color);
+      object-fit: cover;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+    
+    .testimonial-card h4 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+    
+    .testimonial-card .position {
+      color: var(--light-text);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .testimonial-card p {
+      font-size: 1rem;
+      color: var(--dark-text);
+      line-height: 1.8;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* ===== قسم الدفع ===== */
+    .payment-section {
+      padding: 5rem 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .payment-methods {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      box-shadow: var(--box-shadow);
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .payment-methods::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    }
+    
+    .payment-method {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+      background: #f9f9f9;
+    }
+    
+    .payment-method:hover {
+      border-color: var(--primary-color);
+      box-shadow: 0 5px 15px rgba(255, 45, 117, 0.1);
+      transform: translateY(-5px);
+    }
+    
+    .payment-method-info {
+      text-align: right;
+      flex-grow: 1;
+    }
+    
+    .payment-method h4 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+    
+    .payment-method p {
+      color: var(--light-text);
+    }
+    
+    .payment-method img {
+      height: 50px;
+      margin-right: 1.5rem;
+    }
+    
+    .payment-details {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+      text-align: right;
+      border: 1px solid #eee;
+    }
+    
+    .payment-details h4 {
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .payment-details h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--primary-color);
+    }
+    
+    .payment-details ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .payment-details li {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      font-size: 1.1rem;
+    }
+    
+    .payment-details li i {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      margin-top: 3px;
+    }
+    
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    .whatsapp-btn:hover {
+      background: #128C7E;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+    }
+    
+    /* مودال تسجيل الدخول */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: modalFadeIn 0.4s ease;
+    }
+    
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--light-text);
+      transition: var(--transition);
+    }
+    
+    .close-modal:hover {
+      color: var(--primary-color);
+      transform: rotate(90deg);
+    }
+    
+    .modal-title {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--dark-text);
+      font-weight: 500;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .form-group input:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 45, 117, 0.2);
+    }
+    
+    .modal-btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .modal-btn:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+      transform: translateY(-3px);
+    }
+    
+    .modal-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--light-text);
+    }
+    
+    .modal-footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    /* معاينة الصور في الـ lightbox */
+    .lightbox img {
+      max-height: 80vh;
+    }
+    
+    .lightbox .lb-image {
+      border: 5px solid var(--white);
+      border-radius: 5px;
+    }
+    
+    /* التجاوب مع أحجام الشاشات المختلفة */
+    @media (max-width: 1200px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .section-header h2 {
+        font-size: 2.2rem;
+      }
+      
+      .mainhead {
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .mainhead {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 80px 30px;
+        gap: 25px;
+        transition: var(--transition);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+      }
+      
+      .mainhead.active {
+        right: 0;
+      }
+      
+      .mainhead a {
+        font-size: 1.1rem;
+        padding: 10px 0;
+      }
+      
+      .hero {
+        height: 70vh;
+      }
+      
+      .courses-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+      
+      .payment-method {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .payment-method img {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero {
+        height: 60vh;
+        margin-top: 70px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .modal-content {
+        padding: 2rem 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero-btn {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem;
+      }
+      
+      .footer-links {
+        gap: 15px;
+      }
+      
+      .social-links {
+        gap: 15px;
+      }
+      
+      .social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="navigation">
+    <div class="logo">
+      <img src="../images/logo.jpg" alt="Moon Light Logo">
+    </div>
+    <div class="mainhead">
+      <a href="../index.html#home">الرئيسية</a>
+      <a href="#courses">الكورسات</a>
+      <a href="#pay">طريقه الدفع</a>
+    </div>
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+</header>
+<!-- قسم البطل مع خلفية جديدة -->
+<section class="hero" style="background: linear-gradient(rgba(255, 45, 117, 0.8), rgba(255, 143, 171, 0.8)), url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;">
+  <div class="hero-content">
+    <h1 class="animate__animated animate__fadeInDown">اكتشف عالم الإبداع مع دوراتنا الاحترافية</h1>
+    <p class="animate__animated animate__fadeInUp animate__delay-1s">طور مهاراتك في الخياطة والتطريز مع أفضل المدربين وأحدث المناهج</p>
+    <button class="hero-btn animate__animated animate__fadeInUp animate__delay-2s">إبدأ رحلتك الآن</button>
+  </div>
+</section>
+
+
+<!-- قسم الكورسات مع صور معدلة بدقة -->
+<section class="courses-section">
+  <div class="section-header">
+    <h2>كورساتنا التعليمية</h2>
+    <p>اختر من بين مجموعة متنوعة من الكورسات المصممة خصيصاً لتطوير مهاراتك في مجال الخياطة والتصميم</p>
+  </div>
+  
+  <div class="courses-grid">
+    <!-- كورس القص الاحترافي -->
+    <div class="course-card" data-course="cutting">
+      <div class="course-badge">الأكثر طلباً</div>
+      <div class="course-img">
+          <img src="../images/cutting.jpg" alt="كورس القص">
+
+      </div>
+      <div class="course-content">
+        <h3>كورس القص الاحترافي</h3>
+        <p>تعلم أساسيات قص الأقمشة باحترافية ودقة باستخدام أحدث الأدوات والتقنيات الحديثة في عالم التفصيل.</p>
+        <div class="course-meta">
+          <span><i class="fas fa-clock"></i> 8 ساعات</span>
+          <span><i class="fas fa-user-graduate"></i> مبتدئ/متوسط</span>
+        </div>
+        <div class="course-price">500 جنيه <del>750 جنيه</del></div>
+        <button class="course-btn">سجل الآن</button>
+      </div>
+    </div>
+
+    <!-- كورس تصميم الباترون -->
+    <div class="course-card" data-course="pattern">
+      <div class="course-img">
+          <img src="../images/pattarn.jpg" alt="كورس الباترون">
+      </div>
+      <div class="course-content">
+        <h3>كورس تصميم الباترون</h3>
+        <p>إتقان رسم الباترونات وتحضيرها للتفصيل مع تطبيقات عملية لتصميمات مختلفة تناسب جميع الأذواق.</p>
+        <div class="course-meta">
+          <span><i class="fas fa-clock"></i> 10 ساعات</span>
+          <span><i class="fas fa-user-graduate"></i> متوسط/متقدم</span>
+        </div>
+        <div class="course-price">700 جنيه <del>900 جنيه</del></div>
+        <button class="course-btn">سجل الآن</button>
+      </div>
+    </div>
+
+    <!-- كورس الخياطة المتقدمة -->
+    <div class="course-card" data-course="sewing">
+      <div class="course-badge">جديد</div>
+      <div class="course-img">
+          <img src="../images/sewing (1).jpg" alt="كورس الخياطة">
+      </div>
+      <div class="course-content">
+        <h3>كورس الخياطة المتقدمة</h3>
+        <p>تعلم الخياطة على الماكينة باحترافية وإنهاء القطع بجودة عالية مع أحدث تقنيات الخياطة المتطورة.</p>
+        <div class="course-meta">
+          <span><i class="fas fa-clock"></i> 12 ساعة</span>
+          <span><i class="fas fa-user-graduate"></i> جميع المستويات</span>
+        </div>
+        <div class="course-price">1000 جنيه <del>1200 جنيه</del></div>
+        <button class="course-btn">سجل الآن</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم المدربة مع صورة جديدة -->
+<section class="instructor-section">
+  <div class="section-header">
+    <h2>تعرف على مدربتك</h2>
+    <p>مدربتنا المحترفة التي سترافقك خطوة بخطوة في رحلتك التعليمية</p>
+  </div>
+  <div class="instructor-card">
+    <a href="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" data-lightbox="instructor" data-title="المدربة أم أنس - خبيرة خياطة وتفصيل معتمدة">
+      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="المدربة أم أنس">
+    </a>
+    <h3>أم أنس</h3>
+    <p class="title">خبيرة خياطة وتفصيل معتمدة</p>
+    <p>خبيرة في الخياطة والتفصيل لأكثر من 15 عاماً، قامت بتدريب المئات من الطالبات على تقنيات الخياطة والتطريز وابتكار التصاميم المميزة. حاصلة على عدة شهادات دولية في مجال التفصيل والخياطة، ولديها خبرة واسعة في تدريب المبتدئين حتى الوصول بهم إلى مستوى الاحتراف.</p>
+  </div>
+</section>
+
+<!-- قسم آراء المتدربين مع صور جديدة -->
+<section class="testimonials-section">
+  <div class="section-header">
+    <h2>آراء المتدربين</h2>
+    <p>بعض آراء طلابنا الذين أتموا الكورسات بنجاح</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <a href="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" data-lightbox="testimonials" data-title="سارة أحمد - خريجة كورس القص الاحترافي">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="متدربة">
+      </a>
+      <h4>سارة أحمد</h4>
+      <p class="position">خريجة كورس القص الاحترافي</p>
+      <p>"الكورس كان رائعاً! تعلمت أشياء جديدة لم أكن أعرفها من قبل، وطريقة الشرح كانت سهلة وبسيطة. المدربة أم أنس متعاونة جداً وتشرح كل التفاصيل بتركيز."</p>
+    </div>
+    <div class="testimonial-card">
+      <a href="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" data-lightbox="testimonials" data-title="منة علي - خريجة كورس الباترون">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="متدربة">
+      </a>
+      <h4>منة علي</h4>
+      <p class="position">خريجة كورس الباترون</p>
+      <p>"مدربة ممتازة، صبرت علينا وشرحت كل خطوة بوضوح. الكورس غيّر طريقة تعاملي مع الباترونات تماماً. أنصح الجميع بالتجربة."</p>
+    </div>
+    <div class="testimonial-card">
+      <a href="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" data-lightbox="testimonials" data-title="ريم محمد - خريجة كورس الخياطة المتقدمة">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="متدربة">
+      </a>
+      <h4>ريم محمد</h4>
+      <p class="position">خريجة كورس الخياطة المتقدمة</p>
+      <p>"كنت مبتدئة تماماً، والآن أقدر أخيط ملابسي بنفسي باحترافية. الشكر الكبير لأم أنس على صبرها وأسلوبها الرائع في الشرح."</p>
+    </div>
+  </div>
+</section>
+<!-- ===== قسم طرق الدفع ===== -->
+<section class="payment-section" id="pay">
+  <div class="section-header">
+    <h2>طرق الدفع والتسجيل</h2>
+    <p>اختر الطريقة المناسبة لك لبدء رحلتك التعليمية معنا</p>
+  </div>
+  
+  <div class="payment-methods">
+    <h3>طرق الدفع المتاحة:</h3>
+    
+    <div class="payment-method">
+      <div class="payment-method-info">
+        <h4>فودافون كاش</h4>
+        <p>الدفع عبر تحويل فودافون كاش</p>
+      </div>
+      <!-- صورة فودافون كاش عالية الجودة -->
+      <img src="https://i.imgur.com/5X6Jz7E.png" alt="فودافون كاش" style="width: 120px; height: auto;">
+    </div>
+    
+    <div class="payment-details">
+      <h4>تعليمات الدفع عبر فودافون كاش:</h4>
+      <ul>
+        <li><i class="fas fa-check-circle"></i> قم بتحويل قيمة الكورس إلى الرقم: <strong>01128131448</strong></li>
+        <li><i class="fas fa-check-circle"></i> احفظ رقم التحويل (رقم المرجع) لإثبات عملية الدفع</li>
+        <li><i class="fas fa-check-circle"></i> أرسل صورة من إيصال التحويل عبر الواتساب لنفس الرقم</li>
+        <li><i class="fas fa-check-circle"></i> سيتم تأكيد التحويل وإرسال بيانات الدخول للكورس خلال 24 ساعة</li>
+        <li><i class="fas fa-check-circle"></i> للاستفسارات يمكنك التواصل عبر الواتساب على نفس الرقم</li>
+      </ul>
+      
+      <a href="https://wa.me/201128131448?text=مرحباً، قمت بالتحويل للكورس ورقم التحويل هو:" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i> إرسال إيصال الدفع عبر واتساب
+      </a>
+    </div>
+  </div>
+</section>
+<!-- مودال تسجيل الدخول -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h3 class="modal-title">تسجيل الدخول للكورس</h3>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="courseCode">كود الكورس</label>
+        <input type="text" id="courseCode" placeholder="أدخل كود الكورس الذي حصلت عليه" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">رقم الهاتف</label>
+        <input type="tel" id="phoneNumber" placeholder="أدخل رقم الهاتف المسجل به" required>
+      </div>
+      <button type="submit" class="modal-btn">دخول للكورس</button>
+    </form>
+    <div class="modal-footer">
+      <p>ليس لديك كود؟ <a href="#" id="goToPayment">الذهاب لخيارات الدفع</a></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="../images/logo.jpg" alt="Moon Light Logo">
+    </div>
+    <div class="footer-links">
+      <a href="../index.html#home">الرئيسية</a>
+      <a href="../index.html#about">من نحن</a>
+      <a href="../index.html#services">الخدمات</a>
+      <a href="../index.html#contact-us">اتصل بنا</a>
+      <a href="index.html">الكورسات</a>
+    </div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="https://wa.me/201128131448"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <div class="copyright">
+      <p>جميع الحقوق محفوظة &copy; <span id="year"></span> Moon Light</p>
+    </div>
+  </div>
+</footer>
+
+<!-- إضافة مكتبة lightbox -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+<script>
+  // أكواد الكورسات
+  const courseCodes = {
+    cutting: "CUT123",
+    pattern: "PAT456",
+    sewing: "SEW789"
+  };
+
+  // أسعار الكورسات
+  const coursePrices = {
+    cutting: 500,
+    pattern: 700,
+    sewing: 1000
+  };
+
+  // عناصر DOM
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mainHead = document.querySelector('.mainhead');
+  const header = document.querySelector('header');
+  const loginModal = document.getElementById('loginModal');
+  const closeModal = document.querySelector('.close-modal');
+  const loginForm = document.getElementById('loginForm');
+  const goToPayment = document.getElementById('goToPayment');
+  const courseBtns = document.querySelectorAll('.course-btn');
+  const heroBtn = document.querySelector('.hero-btn');
+  const yearSpan = document.getElementById('year');
+
+  // تغيير لون الهيدر عند التمرير
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // تبديل القائمة في الجوال
+  menuToggle.addEventListener('click', () => {
+    mainHead.classList.toggle('active');
+    menuToggle.innerHTML = mainHead.classList.contains('active') ? 
+      '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+  });
+
+  // إغلاق القائمة عند النقر على رابط
+  document.querySelectorAll('.mainhead a').forEach(link => {
+    link.addEventListener('click', () => {
+      mainHead.classList.remove('active');
+      menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    });
+  });
+
+  // عرض/إخفاء مودال تسجيل الدخول
+  function toggleModal() {
+    loginModal.style.display = loginModal.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  // إغلاق المودال عند النقر على X
+  closeModal.addEventListener('click', toggleModal);
+
+  // إغلاق المودال عند النقر خارج المحتوى
+  window.addEventListener('click', (e) => {
+    if (e.target === loginModal) {
+      toggleModal();
+    }
+  });
+
+  // الذهاب لخيارات الدفع
+  goToPayment.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleModal();
+    window.location.href = '#pay';
+  });
+
+  // معالجة النقر على أزرار الكورسات
+  courseBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const courseCard = this.closest('.course-card');
+      const courseId = courseCard.dataset.course;
+      const courseTitle = courseCard.querySelector('h3').textContent;
+      const coursePrice = coursePrices[courseId];
+      
+      // عرض خيارات التسجيل
+      const isRegistered = confirm(`كورس ${courseTitle}\nالسعر: ${coursePrice} جنيه\n\nهل لديك كود الدخول للكورس؟`);
+      
+      if(isRegistered) {
+        // إذا كان مسجلاً وعنده كود
+        toggleModal();
+      } else {
+        // إذا كان يريد التسجيل
+        const whatsappMsg = `مرحباً، أرغب في التسجيل في كورس ${courseTitle} بقيمة ${coursePrice} جنيه.\n\nالرجاء تأكيد طريقة الدفع.`;
+        window.open(`https://wa.me/201128131448?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+      }
+    });
+  });
+
+// معالجة تسجيل الدخول
+loginForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const courseCode = document.getElementById('courseCode').value;
+  const phoneNumber = document.getElementById('phoneNumber').value;
+  
+  // التحقق من صحة الكود
+  let validCourse = null;
+  for (const [course, code] of Object.entries(courseCodes)) {
+    if (courseCode === code) {
+      validCourse = course;
+      break;
+    }
+  }
+  
+  if (validCourse) {
+    // إعادة التوجيه إلى صفحة الكورس المناسبة
+    window.location.href = `courses/${validCourse}.html`;
+    toggleModal();
+  } else {
+    alert('كود الكورس غير صحيح. الرجاء التأكد من الكود أو التواصل مع الدعم الفني.');
+  }
+});
+  // زر البطل
+  heroBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: document.querySelector('.courses-section').offsetTop - 100,
+      behavior: 'smooth'
+    });
+  });
+
+  // تحديث السنة في الفوتر
+  yearSpan.textContent = new Date().getFullYear();
+
+  // إضافة تأثيرات عند التمرير
+  document.addEventListener('DOMContentLoaded', () => {
+    const animateElements = document.querySelectorAll('.section-header, .course-card, .instructor-card, .testimonial-card, .payment-methods');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    animateElements.forEach(el => observer.observe(el));
+  });
+
+  // تهيئة lightbox
+  lightbox.option({
+    'resizeDuration': 200,
+    'wrapAround': true,
+    'alwaysShowNavOnTouchDevices': true,
+    'albumLabel': 'صورة %1 من %2',
+    'disableScrolling': true
+  });
+</script>
+</body>
+</html>
