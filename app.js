@@ -13,6 +13,7 @@ const translations = {
     services: "Services",
     location: "Location",
     contact: "Contact Us",
+    courses: "courses",
     language: "Language ▾",
 homeTitle: "Moon Light Apparel Manufacturing",
 homeSubtitle: "Specializing in high-quality homewear and loungewear"
@@ -77,6 +78,7 @@ homeSubtitle: "Specializing in high-quality homewear and loungewear"
     services: "الخدمات",
     location: "الموقع",
     contact: "اتصل بنا",
+    courses: " الكورسات",
     language: "اللغة ▾",
 homeTitle: "مصنع مون لايت لصناعة الملابس",
 homeSubtitle: "متخصصون في ملابس المنزل والراحة عالية الجودة"
