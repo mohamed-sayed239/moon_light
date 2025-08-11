@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>كورس الخياطة - Moon Light</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-color: #ff2d75;
+      --primary-dark: #d61a5e;
       --secondary-color: #ff8fab;
       --light-pink: #fff0f3;
       --dark-pink: #ffccd5;
@@ -15,6 +17,7 @@
       --light-text: #777;
       --white: #fff;
       --transition: all 0.3s ease;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     
     * {
@@ -30,130 +33,209 @@
       direction: rtl;
     }
     
+    /* الهيدر بنفس ستايل الصفحة الرئيسية */
     header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: var(--white);
-      padding: 1rem 0;
-      box-shadow: 0 4px 15px rgba(255, 45, 117, 0.3);
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
       z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
     }
     
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
+    header.scrolled {
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     
     .navigation {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-    }
-    
-    .logo img {
-      height: 60px;
-      border-radius: 50%;
-      border: 2px solid var(--white);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 20px;
+      justify-content: space-between;
     }
     
     .mainhead {
       display: flex;
-      gap: 15px;
+      gap: 25px;
+      align-items: center;
     }
     
     .mainhead a {
-      color: var(--white);
+      color: var(--dark-text);
       text-decoration: none;
+      font-size: 16px;
       font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
       transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
     }
     
     .mainhead a:hover {
-      background-color: rgba(255, 255, 255, 0.2);
+      color: var(--primary-color);
     }
     
+    .mainhead a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: var(--transition);
+    }
+    
+    .mainhead a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+    
+    .logo:hover img {
+      transform: rotate(15deg);
+    }
+    
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--primary-color);
+    }
+    
+    /* تصميم الكورس */
     .course-container {
-      max-width: 1000px;
-      margin: 2rem auto;
+      max-width: 1200px;
+      margin: 100px auto 50px;
       padding: 2rem;
       background-color: var(--white);
       border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--box-shadow);
     }
     
     .course-header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
     }
     
     .course-header h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--primary-color);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
     }
     
     .course-header img {
       max-width: 100%;
       height: auto;
-      border-radius: 10px;
-      margin: 1rem auto;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-height: 500px;
+      border-radius: 15px;
+      margin: 1.5rem auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      object-fit: cover;
     }
     
     .course-description {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       line-height: 1.8;
       color: var(--dark-text);
       margin-bottom: 2rem;
       text-align: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .course-section {
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
     }
     
     .course-section h2 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--primary-color);
       margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--light-pink);
+      padding-bottom: 0.8rem;
+      border-bottom: 3px solid var(--light-pink);
+      position: relative;
     }
     
-    /* تصميم جديد للفيديوهات */
+    .course-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      right: 0;
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    }
+    
+    /* تصميم الفيديوهات */
     .videos-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
     }
     
     .video-card {
-      background: linear-gradient(to bottom, var(--light-pink), var(--white));
-      border-radius: 12px;
+      background: var(--white);
+      border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(255, 45, 117, 0.15);
+      box-shadow: var(--box-shadow);
       transition: var(--transition);
       border: 1px solid var(--dark-pink);
     }
     
     .video-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(255, 45, 117, 0.25);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255, 45, 117, 0.2);
     }
     
     .video-container {
       position: relative;
+      padding-top: 56.25%; /* نسبة 16:9 */
+      background-color: #000;
     }
     
     .video-container video {
+      position: absolute;
+      top: 0;
+      right: 0;
       width: 100%;
-      display: block;
-      border-bottom: 3px solid var(--primary-color);
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .video-poster {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     
     .video-overlay {
@@ -165,41 +247,65 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgba(255, 45, 117, 0.1);
-      opacity: 0;
+      background-color: rgba(0, 0, 0, 0.3);
       transition: var(--transition);
+      cursor: pointer;
     }
     
     .video-card:hover .video-overlay {
-      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.5);
     }
     
     .play-icon {
       color: var(--white);
-      font-size: 3rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      font-size: 4rem;
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+    
+    .video-card:hover .play-icon {
+      transform: scale(1.1);
+      opacity: 1;
     }
     
     .video-info {
-      padding: 1.2rem;
+      padding: 1.5rem;
       text-align: center;
     }
     
     .video-info h3 {
       color: var(--primary-color);
       margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
     
+    .video-info p {
+      color: var(--light-text);
+      font-size: 0.9rem;
+    }
+    
+    /* قائمة الفوائد */
     .benefits-list {
       list-style: none;
       padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
     }
     
     .benefits-list li {
       margin-bottom: 1rem;
-      padding-right: 1.5rem;
+      padding: 1.2rem;
+      background-color: var(--light-pink);
+      border-radius: 10px;
       position: relative;
+      padding-right: 2.5rem;
+      transition: var(--transition);
+    }
+    
+    .benefits-list li:hover {
+      transform: translateX(-10px);
+      background-color: var(--dark-pink);
     }
     
     .benefits-list li::before {
@@ -207,80 +313,120 @@
       font-family: "Font Awesome 6 Free";
       font-weight: 900;
       position: absolute;
-      right: 0;
+      right: 1rem;
+      top: 1.2rem;
       color: var(--primary-color);
+      font-size: 1.2rem;
     }
     
-    @media (min-width: 768px) {
-      .videos-grid {
-        grid-template-columns: repeat(3, 1fr);
+    /* التجاوب مع أحجام الشاشات المختلفة */
+    @media (max-width: 1200px) {
+      .course-container {
+        margin: 100px 20px 50px;
       }
     }
     
-    @media (min-width: 992px) {
-      .videos-grid {
-        grid-template-columns: repeat(4, 1fr);
+    @media (max-width: 992px) {
+      .course-header h1 {
+        font-size: 2.3rem;
       }
-    }
-    
-    @media (max-width: 480px) {
-      .videos-grid {
-        grid-template-columns: 1fr;
+      
+      .course-section h2 {
+        font-size: 1.8rem;
       }
     }
     
     @media (max-width: 768px) {
-      .navigation {
-        flex-direction: column;
-        gap: 15px;
+      .menu-toggle {
+        display: block;
       }
       
       .mainhead {
-        flex-wrap: wrap;
-        justify-content: center;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 80px 30px;
+        gap: 25px;
+        transition: var(--transition);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 999;
       }
       
-      .course-container {
-        padding: 1.5rem;
+      .mainhead.active {
+        right: 0;
+      }
+      
+      .mainhead a {
+        font-size: 1.1rem;
+        padding: 10px 0;
       }
       
       .course-header h1 {
         font-size: 2rem;
       }
       
+      .course-header img {
+        max-height: 400px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .course-container {
+        padding: 1.5rem;
+        margin: 80px 15px 30px;
+      }
+      
+      .course-header h1 {
+        font-size: 1.8rem;
+      }
+      
       .course-section h2 {
         font-size: 1.5rem;
+      }
+      
+      .videos-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .benefits-list {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
 <header>
-  <div class="header-container">
-    <nav class="navigation">
-      <div class="logo">
-        <img src="../images/logo.jpg" alt="Moon Light Logo">
-      </div>
-      <div class="mainhead">
-        <a href="../index.html#home">الرئيسية</a>
-        <a href="../index.html#about">من نحن</a>
-        <a href="../index.html#Manufacturing">التصنيع</a>
-        <a href="../index.html#services">الخدمات</a>
-        <a href="../index.html#location">الموقع</a>
-        <a href="../index.html#contact-us">اتصل بنا</a>
-        <a href="index.html">الكورسات</a>
-      </div>
-    </nav>
+  <div class="navigation">
+    <div class="logo">
+      <img src="../images/logo.jpg" alt="Moon Light Logo">
+    </div>
+    <div class="mainhead">
+      <a href="../index.html#home">الرئيسية</a>
+      <a href="../courses/cutting.html">كورس القص</a>
+      <a href="../courses/sewing.html">كورس الخياطه</a>
+      <a href="../courses/pattern.html">كورس الباترون</a>
+      <a href="#pay">طريقه الدفع</a>
+    </div>
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
   </div>
 </header>
 
 <div class="course-container">
   <div class="course-header">
     <h1>كورس الخياطة الاحترافية</h1>
-    <img src="../images/courses/sewing.jpg" alt="كورس الخياطة">
+    <img src="../images/sewing (1).jpg" alt="كورس الخياطة الاحترافية">
     <p class="course-description">
-      اكتشف عالم الخياطة باحترافية مع كورسنا الشامل. تعلم تقنيات الخياطة الأساسية والمتقدمة، 
-      كيفية التعامل مع ماكينة الخياطة بكل ثقة، وإتقان التشطيبات النهائية بجودة عالية.
+      أتقن فن الخياطة من الألف إلى الياء مع كورسنا الشامل. تعلم كيفية تشغيل ماكينة الخياطة،
+      إتقان الغرز المختلفة، وتنفيذ مشاريع كاملة بجودة عالية. سواء كنت مبتدئاً أو ترغب في تطوير مهاراتك،
+      هذا الكورس سيرفع من مستواك إلى الاحتراف.
     </p>
   </div>
   
@@ -290,8 +436,9 @@
       <!-- فيديو 1 -->
       <div class="video-card">
         <div class="video-container">
-          <video controls poster="../images/video-posters/sewing-intro.jpg">
-            <source src="videos/sewing-intro.mp4" type="video/mp4">
+          <img src="../images/video-posters/sewing-intro.jpg" class="video-poster" alt="مقدمة كورس الخياطة">
+          <video controls>
+            <source src="../videos/sewing-intro.mp4" type="video/mp4">
             متصفحك لا يدعم تشغيل الفيديو.
           </video>
           <div class="video-overlay">
@@ -299,15 +446,17 @@
           </div>
         </div>
         <div class="video-info">
-          <h3>أساسيات الخياطة</h3>
+          <h3>مقدمة في الخياطة</h3>
+          <p>أساسيات الخياطة الصحيحة</p>
         </div>
       </div>
       
       <!-- فيديو 2 -->
       <div class="video-card">
         <div class="video-container">
-          <video controls poster="../images/video-posters/fabrics.jpg">
-            <source src="videos/fabrics.mp4" type="video/mp4">
+          <img src="../images/video-posters/machine.jpg" class="video-poster" alt="ماكينة الخياطة">
+          <video controls>
+            <source src="../videos/sewing-machine.mp4" type="video/mp4">
             متصفحك لا يدعم تشغيل الفيديو.
           </video>
           <div class="video-overlay">
@@ -315,31 +464,17 @@
           </div>
         </div>
         <div class="video-info">
-          <h3>أنواع الأقمشة</h3>
+          <h3>تشغيل الماكينة</h3>
+          <p>كيفية استخدام ماكينة الخياطة</p>
         </div>
       </div>
       
       <!-- فيديو 3 -->
       <div class="video-card">
         <div class="video-container">
-          <video controls poster="../images/video-posters/machine.jpg">
-            <source src="videos/sewing-machine.mp4" type="video/mp4">
-            متصفحك لا يدعم تشغيل الفيديو.
-          </video>
-          <div class="video-overlay">
-            <i class="fas fa-play-circle play-icon"></i>
-          </div>
-        </div>
-        <div class="video-info">
-          <h3>ماكينة الخياطة</h3>
-        </div>
-      </div>
-      
-      <!-- فيديو 4 -->
-      <div class="video-card">
-        <div class="video-container">
-          <video controls poster="../images/video-posters/stitches.jpg">
-            <source src="videos/stitches.mp4" type="video/mp4">
+          <img src="../images/video-posters/stitches.jpg" class="video-poster" alt="الغرز الأساسية">
+          <video controls>
+            <source src="../videos/basic-stitches.mp4" type="video/mp4">
             متصفحك لا يدعم تشغيل الفيديو.
           </video>
           <div class="video-overlay">
@@ -348,14 +483,16 @@
         </div>
         <div class="video-info">
           <h3>الغرز الأساسية</h3>
+          <p>تعلم جميع أنواع الغرز</p>
         </div>
       </div>
       
-      <!-- فيديو 5 -->
+      <!-- فيديو 4 -->
       <div class="video-card">
         <div class="video-container">
-          <video controls poster="../images/video-posters/simple-clothes.jpg">
-            <source src="videos/simple-clothes.mp4" type="video/mp4">
+          <img src="../images/video-posters/skirt.jpg" class="video-poster" alt="خياطة التنورة">
+          <video controls>
+            <source src="../videos/sewing-skirt.mp4" type="video/mp4">
             متصفحك لا يدعم تشغيل الفيديو.
           </video>
           <div class="video-overlay">
@@ -363,15 +500,35 @@
           </div>
         </div>
         <div class="video-info">
-          <h3>تفصيل الملابس</h3>
+          <h3>خياطة تنورة</h3>
+          <p>خطوة بخطوة لخياطة تنورة</p>
+        </div>
+      </div>
+      
+      <!-- فيديو 5 -->
+      <div class="video-card">
+        <div class="video-container">
+          <img src="../images/video-posters/blouse.jpg" class="video-poster" alt="خياطة بلوزة">
+          <video controls>
+            <source src="../videos/sewing-blouse.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+          </video>
+          <div class="video-overlay">
+            <i class="fas fa-play-circle play-icon"></i>
+          </div>
+        </div>
+        <div class="video-info">
+          <h3>خياطة بلوزة</h3>
+          <p>تصميم وخياطة بلوزة كاملة</p>
         </div>
       </div>
       
       <!-- فيديو 6 -->
       <div class="video-card">
         <div class="video-container">
-          <video controls poster="../images/video-posters/finishing.jpg">
-            <source src="videos/finishing.mp4" type="video/mp4">
+          <img src="../images/video-posters/finishing.jpg" class="video-poster" alt="التشطيب النهائي">
+          <video controls>
+            <source src="../videos/finishing.mp4" type="video/mp4">
             متصفحك لا يدعم تشغيل الفيديو.
           </video>
           <div class="video-overlay">
@@ -380,6 +537,7 @@
         </div>
         <div class="video-info">
           <h3>التشطيب النهائي</h3>
+          <p>تقنيات التشطيب الاحترافية</p>
         </div>
       </div>
     </div>
@@ -388,14 +546,154 @@
   <div class="course-section">
     <h2>ماذا ستتعلم في هذا الكورس؟</h2>
     <ul class="benefits-list">
-      <li>إتقان استخدام ماكينة الخياطة بكافة إمكانياتها</li>
-      <li>تنفيذ مشاريع خياطة كاملة بدءًا من القص وحتى التشطيب النهائي</li>
-      <li>تقنيات الخياطة الاحترافية المستخدمة في الورش والمصانع</li>
-      <li>تحويل الأفكار إلى منتجات ملموسة بجودة عالية</li>
-      <li>إصلاح وتعديل الملابس الجاهزة باحترافية</li>
-      <li>إنهاء القطع بشكل أنيق ومحترف يدوم طويلاً</li>
+      <li>إتقان تشغيل ماكينة الخياطة بكافة إمكانياتها</li>
+      <li>تنفيذ جميع أنواع الغرز الأساسية والمتقدمة</li>
+      <li>خياطة الملابس من البداية حتى النهاية</li>
+      <li>تقنيات الخياطة الاحترافية المستخدمة في المصانع</li>
+      <li>إصلاح وتعديل الملابس الجاهزة</li>
+      <li>إنهاء القطع بشكل أنيق ومحترف</li>
+      <li>خياطة الملابس المنزلية والإكسسوارات</li>
+      <li>حل المشاكل الشائعة في الخياطة</li>
     </ul>
   </div>
 </div>
+
+<script>
+  // أكواد الجافا سكريبت
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mainHead = document.querySelector('.mainhead');
+  const header = document.querySelector('header');
+  
+  // تبديل القائمة في الجوال
+  menuToggle.addEventListener('click', () => {
+    mainHead.classList.toggle('active');
+    menuToggle.innerHTML = mainHead.classList.contains('active') ? 
+      '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+  });
+  
+  // تغيير لون الهيدر عند التمرير
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+  
+  // تشغيل الفيديو عند النقر على البوستر
+  document.querySelectorAll('.video-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function() {
+      const video = this.parentElement.querySelector('video');
+      const poster = this.parentElement.querySelector('.video-poster');
+      
+      poster.style.display = 'none';
+      video.style.display = 'block';
+      video.play();
+      this.style.display = 'none';
+    });
+  });
+  // إغلاق القائمة عند النقر على رابط
+document.querySelectorAll('.mainhead a').forEach(link => {
+  link.addEventListener('click', () => {
+    mainHead.classList.remove('active');
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+  });
+});
+
+// عرض/إخفاء مودال تسجيل الدخول
+function toggleModal() {
+  loginModal.style.display = loginModal.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// إغلاق المودال عند النقر على X
+closeModal.addEventListener('click', toggleModal);
+
+// إغلاق المودال عند النقر خارج المحتوى
+window.addEventListener('click', (e) => {
+  if (e.target === loginModal) {
+    toggleModal();
+  }
+});
+
+// الذهاب لخيارات الدفع
+goToPayment.addEventListener('click', (e) => {
+  e.preventDefault();
+  toggleModal();
+  window.location.href = '#pay';
+});
+
+// معالجة النقر على أزرار الكورسات
+courseBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const courseCard = this.closest('.course-card');
+    const courseId = courseCard.dataset.course;
+    const courseTitle = courseCard.querySelector('h3').textContent;
+    const coursePrice = coursesData[courseId].price;
+    
+    // عرض خيارات التسجيل
+    const isRegistered = confirm(`كورس ${courseTitle}\nالسعر: ${coursePrice} جنيه\n\nهل لديك كود الدخول للكورس؟`);
+    
+    if(isRegistered) {
+      // إذا كان مسجلاً وعنده كود
+      toggleModal();
+    } else {
+      // إذا كان يريد التسجيل
+      const whatsappMsg = `مرحباً، أرغب في التسجيل في كورس ${courseTitle} بقيمة ${coursePrice} جنيه.\n\nالرجاء تأكيد طريقة الدفع.`;
+      window.open(`https://wa.me/201128131448?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+    }
+  });
+});
+
+// معالجة النقر على روابط الكورسات في الهيدر
+courseLinks.forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const courseId = this.dataset.course;
+    const courseName = this.textContent;
+    const courseCode = coursesData[courseId].code;
+    const coursePage = coursesData[courseId].page;
+    
+    // طلب إدخال كود الكورس
+    const userCode = prompt(`أدخل كود الدخول ل${courseName}:\n(إذا لم يكن لديك كود، يمكنك شراء الكورس عبر قسم طرق الدفع)`);
+    
+    if (userCode) {
+      // التحقق من صحة الكود
+      if (userCode.trim().toUpperCase() === courseCode) {
+        alert(`تم التحقق بنجاح! جاري توجيهك إلى كورس ${courseName}...`);
+        // توجيه المستخدم إلى صفحة الكورس
+        window.location.href = coursePage;
+      } else {
+        alert('كود الدخول غير صحيح. الرجاء التأكد من الكود أو التواصل مع الدعم الفني.');
+      }
+    }
+  });
+});
+
+// معالجة تسجيل الدخول
+loginForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const enteredCode = document.getElementById('courseCode').value.trim().toUpperCase();
+  const phoneNumber = document.getElementById('phoneNumber').value;
+  
+  // البحث عن الكورس المطابق للكود المدخل
+  let foundCourse = null;
+  for (const [courseId, courseInfo] of Object.entries(coursesData)) {
+    if (enteredCode === courseInfo.code) {
+      foundCourse = {id: courseId, ...courseInfo};
+      break;
+    }
+  }
+  
+  if (foundCourse) {
+    alert(`تم التحقق بنجاح! جاري توجيهك إلى كورس ${foundCourse.id}...`);
+    // توجيه المستخدم إلى صفحة الكورس
+    window.location.href = foundCourse.page;
+    toggleModal();
+  } else {
+    alert('كود الكورس غير صحيح. الرجاء التأكد من الكود أو التواصل مع الدعم الفني.');
+  }
+});
+
+</script>
 </body>
 </html>

@@ -1016,11 +1016,13 @@
     <div class="logo">
       <img src="../images/logo.jpg" alt="Moon Light Logo">
     </div>
-    <div class="mainhead">
-      <a href="../index.html#home">الرئيسية</a>
-      <a href="#courses">الكورسات</a>
-      <a href="#pay">طريقه الدفع</a>
-    </div>
+<div class="mainhead">
+  <a href="../index.html#home">الرئيسية</a>
+  <a href="#" class="course-link" data-course="cutting">كورس القص</a>
+  <a href="#" class="course-link" data-course="sewing">كورس الخياطه</a>
+  <a href="#" class="course-link" data-course="pattern">كورس الباترون</a>
+  <a href="#pay">طريقه الدفع</a>
+</div>
     <div class="menu-toggle">
       <i class="fas fa-bars"></i>
     </div>
@@ -1099,7 +1101,6 @@
     </div>
   </div>
 </section>
-
 <!-- قسم المدربة مع صورة جديدة -->
 <section class="instructor-section">
   <div class="section-header">
@@ -1233,158 +1234,191 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 
 <script>
-  // أكواد الكورسات
-  const courseCodes = {
-    cutting: "CUT123",
-    pattern: "PAT456",
-    sewing: "SEW789"
-  };
-
-  // أسعار الكورسات
-  const coursePrices = {
-    cutting: 500,
-    pattern: 700,
-    sewing: 1000
-  };
-
-  // عناصر DOM
-  const menuToggle = document.querySelector('.menu-toggle');
-  const mainHead = document.querySelector('.mainhead');
-  const header = document.querySelector('header');
-  const loginModal = document.getElementById('loginModal');
-  const closeModal = document.querySelector('.close-modal');
-  const loginForm = document.getElementById('loginForm');
-  const goToPayment = document.getElementById('goToPayment');
-  const courseBtns = document.querySelectorAll('.course-btn');
-  const heroBtn = document.querySelector('.hero-btn');
-  const yearSpan = document.getElementById('year');
-
-  // تغيير لون الهيدر عند التمرير
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
-
-  // تبديل القائمة في الجوال
-  menuToggle.addEventListener('click', () => {
-    mainHead.classList.toggle('active');
-    menuToggle.innerHTML = mainHead.classList.contains('active') ? 
-      '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-  });
-
-  // إغلاق القائمة عند النقر على رابط
-  document.querySelectorAll('.mainhead a').forEach(link => {
-    link.addEventListener('click', () => {
-      mainHead.classList.remove('active');
-      menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-    });
-  });
-
-  // عرض/إخفاء مودال تسجيل الدخول
-  function toggleModal() {
-    loginModal.style.display = loginModal.style.display === 'flex' ? 'none' : 'flex';
+// أكواد الكورسات مع روابط الصفحات
+const coursesData = {
+  cutting: {
+    code: "CUT123",
+    price: 500,
+    page: "../courses/cutting.html" // مسار صفحة كورس القص
+  },
+  pattern: {
+    code: "PAT456",
+    price: 700,
+    page: "../courses/pattern.html" // مسار صفحة كورس الباترون
+  },
+  sewing: {
+    code: "SEW789",
+    price: 1000,
+    page: "../courses/sewing.html" // مسار صفحة كورس الخياطة
   }
+};
 
-  // إغلاق المودال عند النقر على X
-  closeModal.addEventListener('click', toggleModal);
+// عناصر DOM
+const menuToggle = document.querySelector('.menu-toggle');
+const mainHead = document.querySelector('.mainhead');
+const header = document.querySelector('header');
+const loginModal = document.getElementById('loginModal');
+const closeModal = document.querySelector('.close-modal');
+const loginForm = document.getElementById('loginForm');
+const goToPayment = document.getElementById('goToPayment');
+const courseBtns = document.querySelectorAll('.course-btn');
+const courseLinks = document.querySelectorAll('.course-link');
+const heroBtn = document.querySelector('.hero-btn');
+const yearSpan = document.getElementById('year');
 
-  // إغلاق المودال عند النقر خارج المحتوى
-  window.addEventListener('click', (e) => {
-    if (e.target === loginModal) {
+// تغيير لون الهيدر عند التمرير
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+// تبديل القائمة في الجوال
+menuToggle.addEventListener('click', () => {
+  mainHead.classList.toggle('active');
+  menuToggle.innerHTML = mainHead.classList.contains('active') ? 
+    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+});
+
+// إغلاق القائمة عند النقر على رابط
+document.querySelectorAll('.mainhead a').forEach(link => {
+  link.addEventListener('click', () => {
+    mainHead.classList.remove('active');
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+  });
+});
+
+// عرض/إخفاء مودال تسجيل الدخول
+function toggleModal() {
+  loginModal.style.display = loginModal.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// إغلاق المودال عند النقر على X
+closeModal.addEventListener('click', toggleModal);
+
+// إغلاق المودال عند النقر خارج المحتوى
+window.addEventListener('click', (e) => {
+  if (e.target === loginModal) {
+    toggleModal();
+  }
+});
+
+// الذهاب لخيارات الدفع
+goToPayment.addEventListener('click', (e) => {
+  e.preventDefault();
+  toggleModal();
+  window.location.href = '#pay';
+});
+
+// معالجة النقر على أزرار الكورسات
+courseBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const courseCard = this.closest('.course-card');
+    const courseId = courseCard.dataset.course;
+    const courseTitle = courseCard.querySelector('h3').textContent;
+    const coursePrice = coursesData[courseId].price;
+    
+    // عرض خيارات التسجيل
+    const isRegistered = confirm(`كورس ${courseTitle}\nالسعر: ${coursePrice} جنيه\n\nهل لديك كود الدخول للكورس؟`);
+    
+    if(isRegistered) {
+      // إذا كان مسجلاً وعنده كود
       toggleModal();
+    } else {
+      // إذا كان يريد التسجيل
+      const whatsappMsg = `مرحباً، أرغب في التسجيل في كورس ${courseTitle} بقيمة ${coursePrice} جنيه.\n\nالرجاء تأكيد طريقة الدفع.`;
+      window.open(`https://wa.me/201128131448?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
     }
   });
+});
 
-  // الذهاب لخيارات الدفع
-  goToPayment.addEventListener('click', (e) => {
+// معالجة النقر على روابط الكورسات في الهيدر
+courseLinks.forEach(link => {
+  link.addEventListener('click', function(e) {
     e.preventDefault();
-    toggleModal();
-    window.location.href = '#pay';
-  });
-
-  // معالجة النقر على أزرار الكورسات
-  courseBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const courseCard = this.closest('.course-card');
-      const courseId = courseCard.dataset.course;
-      const courseTitle = courseCard.querySelector('h3').textContent;
-      const coursePrice = coursePrices[courseId];
-      
-      // عرض خيارات التسجيل
-      const isRegistered = confirm(`كورس ${courseTitle}\nالسعر: ${coursePrice} جنيه\n\nهل لديك كود الدخول للكورس؟`);
-      
-      if(isRegistered) {
-        // إذا كان مسجلاً وعنده كود
-        toggleModal();
+    const courseId = this.dataset.course;
+    const courseName = this.textContent;
+    const courseCode = coursesData[courseId].code;
+    const coursePage = coursesData[courseId].page;
+    
+    // طلب إدخال كود الكورس
+    const userCode = prompt(`أدخل كود الدخول ل${courseName}:\n(إذا لم يكن لديك كود، يمكنك شراء الكورس عبر قسم طرق الدفع)`);
+    
+    if (userCode) {
+      // التحقق من صحة الكود
+      if (userCode.trim().toUpperCase() === courseCode) {
+        alert(`تم التحقق بنجاح! جاري توجيهك إلى كورس ${courseName}...`);
+        // توجيه المستخدم إلى صفحة الكورس
+        window.location.href = coursePage;
       } else {
-        // إذا كان يريد التسجيل
-        const whatsappMsg = `مرحباً، أرغب في التسجيل في كورس ${courseTitle} بقيمة ${coursePrice} جنيه.\n\nالرجاء تأكيد طريقة الدفع.`;
-        window.open(`https://wa.me/201128131448?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+        alert('كود الدخول غير صحيح. الرجاء التأكد من الكود أو التواصل مع الدعم الفني.');
       }
-    });
+    }
   });
+});
 
 // معالجة تسجيل الدخول
 loginForm.addEventListener('submit', function(e) {
   e.preventDefault();
-  const courseCode = document.getElementById('courseCode').value;
+  const enteredCode = document.getElementById('courseCode').value.trim().toUpperCase();
   const phoneNumber = document.getElementById('phoneNumber').value;
   
-  // التحقق من صحة الكود
-  let validCourse = null;
-  for (const [course, code] of Object.entries(courseCodes)) {
-    if (courseCode === code) {
-      validCourse = course;
+  // البحث عن الكورس المطابق للكود المدخل
+  let foundCourse = null;
+  for (const [courseId, courseInfo] of Object.entries(coursesData)) {
+    if (enteredCode === courseInfo.code) {
+      foundCourse = {id: courseId, ...courseInfo};
       break;
     }
   }
   
-  if (validCourse) {
-    // إعادة التوجيه إلى صفحة الكورس المناسبة
-    window.location.href = `courses/${validCourse}.html`;
+  if (foundCourse) {
+    alert(`تم التحقق بنجاح! جاري توجيهك إلى كورس ${foundCourse.id}...`);
+    // توجيه المستخدم إلى صفحة الكورس
+    window.location.href = foundCourse.page;
     toggleModal();
   } else {
     alert('كود الكورس غير صحيح. الرجاء التأكد من الكود أو التواصل مع الدعم الفني.');
   }
 });
-  // زر البطل
-  heroBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: document.querySelector('.courses-section').offsetTop - 100,
-      behavior: 'smooth'
+
+// زر البطل
+heroBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: document.querySelector('.courses-section').offsetTop - 100,
+    behavior: 'smooth'
+  });
+});
+
+// تحديث السنة في الفوتر
+yearSpan.textContent = new Date().getFullYear();
+
+// إضافة تأثيرات عند التمرير
+document.addEventListener('DOMContentLoaded', () => {
+  const animateElements = document.querySelectorAll('.section-header, .course-card, .instructor-card, .testimonial-card, .payment-methods');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+        observer.unobserve(entry.target);
+      }
     });
-  });
+  }, { threshold: 0.1 });
+  
+  animateElements.forEach(el => observer.observe(el));
+});
 
-  // تحديث السنة في الفوتر
-  yearSpan.textContent = new Date().getFullYear();
-
-  // إضافة تأثيرات عند التمرير
-  document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.section-header, .course-card, .instructor-card, .testimonial-card, .payment-methods');
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate__animated', 'animate__fadeInUp');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    animateElements.forEach(el => observer.observe(el));
-  });
-
-  // تهيئة lightbox
-  lightbox.option({
-    'resizeDuration': 200,
-    'wrapAround': true,
-    'alwaysShowNavOnTouchDevices': true,
-    'albumLabel': 'صورة %1 من %2',
-    'disableScrolling': true
-  });
+// تهيئة lightbox
+lightbox.option({
+  'resizeDuration': 200,
+  'wrapAround': true,
+  'alwaysShowNavOnTouchDevices': true,
+  'albumLabel': 'صورة %1 من %2',
+  'disableScrolling': true
+});
 </script>
 </body>
 </html>
